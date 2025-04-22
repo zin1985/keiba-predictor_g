@@ -7,7 +7,9 @@ on:
 
 permissions:
   contents: write
-
+  pages: write
+  id-token: write  # ← ★これが必要！
+  
 jobs:
   build:
     runs-on: ubuntu-latest
