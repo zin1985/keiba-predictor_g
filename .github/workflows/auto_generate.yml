@@ -1,0 +1,34 @@
+name: Auto Generate G1 Prediction
+
+on:
+  schedule:
+    - cron: '0 22 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Generate G1 Prediction
+        run: |
+          GEMINI_API_KEY=${ secrets.GEMINI_API_KEY } python3 generate_gemini.py
+
+      - name: Commit and Push
+        run: |
+          git config --global user.email "bot@example.com"
+          git config --global user.name "GitHub Actions"
+          git add _posts/
+          git commit -m "Add daily G1 prediction"
+          git push
