@@ -1,0 +1,39 @@
+name: Generate Past G1 Posts
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 1 * * *'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Gemini batch generator
+        run: python3 generate_gemini_batch.py
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: Commit and Push
+        if: always()
+        run: |
+          git config --global user.email "bot@example.com"
+          git config --global user.name "GitHub Actions"
+          git add _posts/
+          git commit -m "Add batch G1 predictions"
+          git push
