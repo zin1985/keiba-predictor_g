@@ -22,8 +22,9 @@ jobs:
         run: pip install requests
 
       - name: Generate G1 Prediction
-        run: |
-          GEMINI_API_KEY=${ secrets.GEMINI_API_KEY } python3 generate_gemini.py
+        run: python3 generate_gemini.py
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
       - name: Commit and Push
         run: |
