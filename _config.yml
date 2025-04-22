@@ -1,0 +1,5 @@
+title: keiba-predictor_g
+description: AI（Gemini）が生成する競馬G1レース予想ブログ
+theme: minima
+plugins:
+  - jekyll-feed
