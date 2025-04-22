@@ -37,3 +37,22 @@ jobs:
           git add _posts/
           git commit -m "Add batch G1 predictions"
           git push
+          
+      # ✅ 必ず実行：_postsを含めたJekyllビルドとPagesへのデプロイ
+      - name: Setup Pages
+        if: always()
+        uses: actions/configure-pages@v4
+
+      - name: Build with Jekyll
+        if: always()
+        uses: actions/jekyll-build-pages@v1
+
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        if: always()
+        uses: actions/deploy-pages@v2
