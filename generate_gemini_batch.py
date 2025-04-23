@@ -4,7 +4,7 @@ import json
 import requests
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent"
+GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 USED_RACES_FILE = "used_races_batch.json"
 
 START_DATE = datetime.date(2023, 1, 1)
